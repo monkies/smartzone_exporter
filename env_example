@@ -1,0 +1,3 @@
+userName=API User Name [admin]
+password=API User Password [admin123]
+url=Controller address with port [https://ruckus.com:8443]

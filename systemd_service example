@@ -1,0 +1,26 @@
+[Unit]
+Description=smartzone_exporter
+After=network-online.target
+StartLimitInterval=0
+
+[Service]
+Type=simple
+User=smartzone-exp
+Group=smartzone-exp
+ExecStart=PATHTOVENVENVIROMENT /usr/local/bin/smartzone_exporter.py -u API -p PASS -t https://HOSTNAME:8443
+
+SyslogIdentifier=smartzone_exporter
+Restart=always
+RestartSec=1
+
+PrivateTmp=yes
+ProtectHome=yes
+NoNewPrivileges=yes
+
+ProtectSystem=strict
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=yes
+
+[Install]
+WantedBy=multi-user.target

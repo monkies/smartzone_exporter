@@ -1,0 +1,131 @@
+# Author: Jakub Jastrabik.
+
+groups:
+- name: smartzone_exporter
+  rules:
+  - alert: Exporter Down
+    annotations:
+      description: "Smartzone exporter down on host {{ $labels.instance }}. "
+    expr: up{job=~"smartzone"} == 0
+    for: 5m
+    labels:
+      severity: critical
+  - alert: High Cpu Load
+    annotations:
+      description: "High CPU load {{ $value }} in Device {{ $labels.instance }}"
+    expr: ((avg by(instance) (irate(smartzone_system_cpu_usage[2h])) * 100))  > 97
+    for: 25m
+    labels:
+      severity: critical
+  - alert: High Cpu Load
+    annotations:
+      description: "High CPU load {{ $value }} in Device {{ $labels.instance }}"
+    expr: ((avg by(instance) (irate(smartzone_system_cpu_usage[2h])) * 100))  > 95
+    for: 25m
+    labels:
+      severity: high
+  - alert: High Cpu Load
+    annotations:
+      description: "High CPU load {{ $value }} in Device {{ $labels.instance }}"
+    expr: ((avg by(instance) (irate(smartzone_system_cpu_usage[2h])) * 100)) > 90
+    for: 1h
+    labels:
+      severity: warning
+  - alert: RAM Is Filling Up
+    annotations:
+      description: "RAM is filling up in Device {{ $labels.instance }}"
+    expr: (smartzone_system_memory_usage) > 95
+    for: 25m
+    labels:
+      severity: high
+  - alert: RAM Is Filling Up
+    annotations:
+      description: "RAM is filling up in Device {{ $labels.instance }}"
+    expr: (smartzone_system_memory_usage) > 97
+    for: 15m
+    labels:
+      severity: critical
+  - alert: Out of disk space
+    annotations:
+      description: "Out of storage space in {{ $labels.instance }}. {{ $value }} % left"
+    expr: (1 - smartzone_system_disk_free / smartzone_system_disk_size) * 100 > 95
+    for: 25m
+    labels:
+      severity: high
+  - alert: Out of disk space
+    annotations:
+      description: "Out of  storage space in {{ $labels.instance }}. {{ $value }} % left"
+    expr: (1 - smartzone_system_disk_free / smartzone_system_disk_size) * 100 > 97
+    for: 15m
+    labels:
+      severity: critical
+  - alert: SN change
+    annotations:
+      description: "Serial Number is different as Serial Number at last 24h. {{ $labels.instance }}"
+    expr: changes(smartzone_controller_serial_number[24h]) != 0
+    for: 5m
+    labels:
+      severity: critical
+  - alert: Disconected AP
+    annotations:
+      description: "AP is disconnected from controller in zone: {{ $labels.zone_name}} more then 1 day "
+    expr: smartzone_zone_disconnected_aps != 0
+    for: 1d
+    labels:
+      severity: critical
+  - alert: Disconected AP
+    annotations:
+      description: "AP is disconnected from controller in zone: {{ $labels.zone_name}} more then 12 hours "
+    expr: smartzone_zone_disconnected_aps != 0
+    for: 12h
+    labels:
+      severity: high
+  - alert: Disconected AP
+    annotations:
+      description: "AP is disconnected from controller in zone: {{ $labels.zone_name}} more then 2 hours "
+    expr: smartzone_zone_disconnected_aps != 0
+    for: 2h
+    labels:
+      severity: warning
+  - alert: IN Interface packet dropped
+    annotations:
+      description: "IN interface name: {{ $labels.port }} are {{ $value }} dropped packets."
+    expr: rate(smartzone_system_port_rxDropped[1h])!= 0
+    for: 5m
+    labels:
+      severity: critical
+  - alert: OUT Interface packet dropped
+    annotations:
+      description: "OUT interface name: {{ $labels.port }} are {{ $value }} dropped packets."
+    expr: rate(smartzone_system_port_rxDropped[1h]) != 0
+    for: 5m
+    labels:
+      severity: critical
+  - alert: AP Critical alarm
+    annotations:
+      description: "AP: {{ $labels.ap_mame }} have {{ $value}} critical alerts"
+    expr: smartzone_aps_alarms_criticalCount != 0
+    for: 5m
+    labels:
+      severity: critical
+  - alert: AP Major alarm
+    annotations:
+      description: "AP: {{ $labels.ap_mame }} have {{ $value }} major alerts"
+    expr: smartzone_aps_alarms_majorCount != 0
+    for: 5m
+    labels:
+      severity: high
+  - alert: AP Minor alarm
+    annotations:
+      description: "AP: {{ $labels.ap_mame }} have {{ $value }} minor alerts"
+    expr: smartzone_aps_alarms_minorCount != 0
+    for: 5m
+    labels:
+      severity: high
+  - alert: AP Warning alarm
+    annotations:
+      description: "AP: {{ $labels.ap_mame }} have {{ $value }} warnings alert"
+    expr: smartzone_aps_alarms_warningCount != 0
+    for: 5m
+    labels:
+      severity: warning
