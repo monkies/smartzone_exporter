@@ -200,7 +200,7 @@ class SmartZoneCollector():
                                       'SmartZone system port  total txPackets',
                                       labels=["id", "port"])
             },
-            'management': {
+            'data': {
                 'rxBps':
                     GaugeMetricFamily('smartzone_system_port_rxBps',
                                       'SmartZone system port rxBps (Throughput)',
@@ -234,7 +234,7 @@ class SmartZoneCollector():
                                       'SmartZone system port total txPackets',
                                       labels=["id", "port"])
             },
-            'cluster': {
+            'port0': {
                 'rxBps':
                     GaugeMetricFamily('smartzone_system_port_rxBps',
                                       'SmartZone system port rxBps (Throughput)',
@@ -335,7 +335,42 @@ class SmartZoneCollector():
                     GaugeMetricFamily('smartzone_system_port_txPackets',
                                       'SmartZone system port total txPackets',
                                       labels=["id", "port"])
-            }
+            },
+            'port3': {
+                'rxBps':
+                    GaugeMetricFamily('smartzone_system_port_rxBps',
+                                      'SmartZone system port rxBps (Throughput)',
+                                      labels=["id", "port"]),
+                'rxBytes':
+                    GaugeMetricFamily('smartzone_system_port_rxBytes',
+                                      'SmartZone system port total rxBytes',
+                                      labels=["id", "port"]),
+                'rxDropped':
+                    GaugeMetricFamily('smartzone_system_port_rxDropped',
+                                      'SmartZone system port total rxDropped',
+                                      labels=["id", "port"]),
+                'rxPackets':
+                    GaugeMetricFamily('smartzone_system_port_rxPackets',
+                                      'SmartZone system port total rxPackets',
+                                      labels=["id", "port"]),
+                'txBps':
+                    GaugeMetricFamily('smartzone_system_port_txBps',
+                                      'SmartZone system port txBps (Throughput)',
+                                      labels=["id", "port"]),
+                'txBytes':
+                    GaugeMetricFamily('smartzone_system_port_txBytes',
+                                      'SmartZone system port total txBytes',
+                                      labels=["id", "port"]),
+                'txDropped':
+                    GaugeMetricFamily('smartzone_system_port_txDropped',
+                                      'SmartZone system port total txDropped',
+                                      labels=["id", "port"]),
+                'txPackets':
+                    GaugeMetricFamily('smartzone_system_port_txPackets',
+                                      'SmartZone system port total txPackets',
+                                      labels=["id", "port"])
+            },
+
         }
 
         system_summary_metric = {
@@ -505,7 +540,7 @@ class SmartZoneCollector():
             varList = list(system_metric[c].keys())
             for s in varList:
                 # Add dummy comment (port name) for port statistic
-                if c == 'port1' or c == 'port2' or c == 'control' or c == 'cluster' or c == 'management':
+                if c == 'port0' or c == 'port1' or c == 'port2' or 'port3' or c == 'control' or c == 'data':
                     system_metric[c][s].add_metric([id, c], system[0][c].get(s))
                 # For normal metric
                 else:
@@ -602,8 +637,11 @@ class SmartZoneCollector():
                 if d == 'mac':
                     ap_mac = ap_detail[d]
                 if d == 'description' or d == 'version' or d == 'model' or d == 'zoneId' or d == 'mac' or d == 'connectionState':
-                    extra = ap_detail[d]
+                    extra = ap_detail[d] and ap_detail[d] or ''
                     ap_metrics[d].add_metric([ap_mac, extra], 1)
+                elif d == 'wifi50Channel' or d == 'wifi24Channel':
+                    val = ap_detail.get(d)
+                    ap_metrics[d].add_metric([ap_mac], val and val or 0)
                 else:
                     ap_metrics[d].add_metric([ap_mac], ap_detail.get(d))
 
