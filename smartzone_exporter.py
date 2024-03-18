@@ -53,13 +53,13 @@ class SmartZoneCollector():
 
         # Set `verify` variable to enable or disable SSL checking
         # Use string method format methods to create new string with inserted value (in this case, the URL)
-        s.get('{}/wsg/api/public/v9_0/session'.format(self._target), verify=self._insecure)
+        s.get('{}/wsg/api/public/v12_0/session'.format(self._target), verify=self._insecure)
 
         # Define URL arguments as a dictionary of strings 'payload'
         payload = {'username': self._user, 'password': self._password}
 
         # Call the payload using the json parameter
-        r = s.post('{}/wsg/api/public/v9_0/session'.format(self._target), json=payload, verify=self._insecure)
+        r = s.post('{}/wsg/api/public/v12_0/session'.format(self._target), json=payload, verify=self._insecure)
 
         # Raise bad requests
         r.raise_for_status()
@@ -78,10 +78,10 @@ class SmartZoneCollector():
             # For APs, use POST and API query to reduce number of requests and improve performance
             # To-do: set dynamic AP limit based on SmartZone inventory
             raw = {'page': 0, 'start': 0, 'limit': 1000}
-            r = requests.post('{}/wsg/api/public/v9_0/{}'.format(self._target, api_path), json=raw,
+            r = requests.post('{}/wsg/api/public/v12_0/{}'.format(self._target, api_path), json=raw,
                               headers=self._headers, verify=self._insecure)
         else:
-            r = requests.get('{}/wsg/api/public/v9_0/{}'.format(self._target, api_path + '?listSize=1000'),
+            r = requests.get('{}/wsg/api/public/v12_0/{}'.format(self._target, api_path + '?listSize=1000'),
                              headers=self._headers,
                              verify=self._insecure)
         result = json.loads(r.text)
@@ -385,6 +385,10 @@ class SmartZoneCollector():
                 GaugeMetricFamily('smartzone_ap_connectionState',
                                   'SmartZone AP connection state',
                                   labels=["ap_mac", "connectionState"]),
+             'wifi6gChannel':
+                 GaugeMetricFamily('smartzone_ap_wifi6gChannel',
+                                   'SmartZone AP 6GHz channel number',
+                                   labels=["ap_mac"]),
             'wifi50Channel':
                 GaugeMetricFamily('smartzone_ap_wifi50Channel',
                                   'SmartZone AP 5GHz channel number',
@@ -599,6 +603,10 @@ class SmartZoneCollector():
         for i in range(r.qsize()):
             ap_detail = r.get(block=True, timeout=None)
             for d in list(ap_metrics.keys()):
+                if (d == "description") & (ap_detail.get("description") == None):
+                    ap_detail.update({"description": "None"})
+                elif ap_detail.get(d) == None:
+                    ap_detail.update({d: 0})
                 if d == 'mac':
                     ap_mac = ap_detail[d]
                 if d == 'description' or d == 'version' or d == 'model' or d == 'zoneId' or d == 'mac' or d == 'connectionState':
