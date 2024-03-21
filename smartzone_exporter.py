@@ -416,6 +416,33 @@ class SmartZoneCollector():
                                   labels=["license_name", "expireDate"])
         }
 
+        wlan_list = {
+            'ssid':
+                GaugeMetricFamily('smartzone_wlan_ssid',
+                                  'SmartZone SSID',
+                                  labels=["zoneId", "name", "ssid"]),
+            'clients':
+                GaugeMetricFamily('smartzone_wlan_clients',
+                                  'SmartZone WLAN clients',
+                                  labels=["zoneId", "name"]),
+            'traffic':
+                GaugeMetricFamily('smartzone_wlan_traffic',
+                                  'SmartZone WLAN traffic',
+                                  labels=["zoneId", "name"]),
+            'trafficUplink':
+                GaugeMetricFamily('smartzone_wlan_traffic_uplink',
+                                  'SmartZone WLAN traffic Uplink',
+                                  labels=["zoneId", "name"]),
+            'trafficDownlink':
+                GaugeMetricFamily('smartzone_wlan_traffic_downlink',
+                                  'SmartZone WLAN traffic Downlink',
+                                  labels=["zoneId", "name"]),
+            'vlan':
+                GaugeMetricFamily('smartzone_wlan_vlan',
+                                  'SmartZone WLAN vlan',
+                                  labels=["zoneId", "name"]),
+}
+
         self.get_session()
 
         id = 0
@@ -472,7 +499,7 @@ class SmartZoneCollector():
         for m in zone_metrics.values():
             yield m
 
-        # Get APs list per zone or a domani
+        # Get APs list per zone or a domain
         # For each APs captured from the query:
         # - Grab the zone ID for labeling purposes
         # - For each APs, get mac, zoneID, apGroupIdm, name, lanPortSize
@@ -488,8 +515,30 @@ class SmartZoneCollector():
                 extra = ap[s]
                 ap_list[s].add_metric([zone_id, ap_mame, ap_mac, extra], 1)
 
+
+
+
         for m in ap_list.values():
             yield m
+
+
+        # Get WLANs list per zone or a domain
+        for wlan in self.get_metrics(wlan_list, 'query/wlan')['list']:
+            wlan_name = wlan['name']
+            zone_id = wlan['zoneId']
+            for w in self._statuses:
+                if s == 'traffic' or s == 'trafficUplink' or s == 'trafficDownlink' or s == 'clients' or s == 'vlan':
+                    wlan_list[w].add_metric([zone_id, wlan_name, extra], wlan.get(s))
+
+                # Export a dummy value for string-only metrics
+                else:
+                    extra = wlan[w]
+                    wlan_list[w].add_metric([zone_id, wlan_name, extra], 1)
+
+        for w in wlan_list.values():
+            yield w
+
+
 
         num_worker_threads = 10
 
