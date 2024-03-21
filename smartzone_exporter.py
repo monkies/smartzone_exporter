@@ -77,7 +77,7 @@ class SmartZoneCollector():
         if 'query' in api_path:
             # For APs, use POST and API query to reduce number of requests and improve performance
             # To-do: set dynamic AP limit based on SmartZone inventory
-            raw = {'page': 0, 'start': 0, 'limit': 1000}
+            raw = {'limit': 1000}
             r = requests.post('{}/wsg/api/public/v12_0/{}'.format(self._target, api_path), json=raw,
                               headers=self._headers, verify=self._insecure)
         else:
