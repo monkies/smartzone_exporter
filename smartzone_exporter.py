@@ -521,15 +521,15 @@ class SmartZoneCollector():
             yield m
 
 
-        # Get WLANs list per zone or a domain
+       # Get WLANs list per zone or a domain
         for wlan in self.get_metrics(wlan_list, 'query/wlan')['list']:
             wlan_name = wlan['name']
             zone_id = wlan['zoneId']
             for w in self._statuses:
-                if wlan.get(s) == None:
-                    wlan.update({s: 0})
-                if s == 'traffic' or s == 'trafficUplink' or s == 'trafficDownlink' or s == 'clients' or s == 'vlan':
-                    wlan_list[w].add_metric([zone_id, wlan_name, extra], wlan.get(s))
+                if wlan.get(w) == None:
+                    wlan.update({w: 0})
+                if w == 'traffic' or w == 'trafficUplink' or w == 'trafficDownlink' or w == 'clients' or w == 'vlan':
+                    wlan_list[w].add_metric([zone_id, wlan_name, extra], wlan.get(w))
 
                 # Export a dummy value for string-only metrics
                 else:
