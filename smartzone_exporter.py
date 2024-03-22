@@ -526,8 +526,11 @@ class SmartZoneCollector():
             wlan_name = wlan['name']
             zone_id = wlan['zoneId']
             for w in self._statuses:
-                if w == 'traffic' or w == 'trafficUplink' or w == 'trafficDownlink' or w == 'clients' or w == 'vlan':
-                    wlan_list[w].add_metric([zone_id, wlan_name, extra], wlan.get(w))
+                if wlan.get(s) == None:
+                    wlan.update({s: 0})
+                if s == 'traffic' or s == 'trafficUplink' or s == 'trafficDownlink' or s == 'clients' or s == 'vlan':
+                    wlan_list[w].add_metric([zone_id, wlan_name, extra], wlan.get(s))
+
                 # Export a dummy value for string-only metrics
                 else:
                     extra = wlan[w]
