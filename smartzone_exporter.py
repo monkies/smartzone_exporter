@@ -21,7 +21,6 @@ from prometheus_client.core import GaugeMetricFamily, CounterMetricFamily, REGIS
 import queue
 import threading
 
-
 # Create SmartZoneCollector as a class - in Python3, classes inherit object as a base class
 # Only need to specify for compatibility or in Python2
 
@@ -527,9 +526,8 @@ class SmartZoneCollector():
             wlan_name = wlan['name']
             zone_id = wlan['zoneId']
             for w in self._statuses:
-                if s == 'traffic' or s == 'trafficUplink' or s == 'trafficDownlink' or s == 'clients' or s == 'vlan':
-                    wlan_list[w].add_metric([zone_id, wlan_name, extra], wlan.get(s))
-
+                if w == 'traffic' or w == 'trafficUplink' or w == 'trafficDownlink' or w == 'clients' or w == 'vlan':
+                    wlan_list[w].add_metric([zone_id, wlan_name, extra], wlan.get(w))
                 # Export a dummy value for string-only metrics
                 else:
                     extra = wlan[w]
