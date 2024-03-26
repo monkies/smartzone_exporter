@@ -281,14 +281,402 @@ class SmartZoneCollector():
         }
 
         ap_list = {
-            'apGroupId':
-                GaugeMetricFamily('smartzone_aps_list_ap_groupId',
-                                  'SmartZone APs list ap groupId',
-                                  labels=["zone_id", "ap_mame", "ap_mac", "groupId"]),
+            'deviceName' :
+                GaugeMetricFamily('smartzone_ap_deviceName', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'description':
+                GaugeMetricFamily('smartzone_ap_description', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'description']),
+            'status':
+                GaugeMetricFamily('smartzone_ap_status', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'status']),
+            'alerts':
+                GaugeMetricFamily('smartzone_ap_alerts', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'ip':
+                GaugeMetricFamily('smartzone_ap_ip', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'ip']),
+            'ipv6Address':
+                GaugeMetricFamily('smartzone_ap_ipv6Address', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'ipv6Address']),
+            'txRx':
+                GaugeMetricFamily('smartzone_ap_txRx', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'noise24G':
+                GaugeMetricFamily('smartzone_ap_noise24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'noise5G':
+                GaugeMetricFamily('smartzone_ap_noise5G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'noise6G':
+                GaugeMetricFamily('smartzone_ap_noise6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'airtime24G':
+                GaugeMetricFamily('smartzone_ap_airtime24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'airtime5G':
+                GaugeMetricFamily('smartzone_ap_airtime5G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'airtime6G':
+                GaugeMetricFamily('smartzone_ap_airtime6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'latency24G':
+                GaugeMetricFamily('smartzone_ap_latency24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'latency50G':
+                GaugeMetricFamily('smartzone_ap_latency50G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'latency6G':
+                GaugeMetricFamily('smartzone_ap_latency6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'capacity':
+                GaugeMetricFamily('smartzone_ap_capacity', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'capacity24G':
+                GaugeMetricFamily('smartzone_ap_capacity24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'capacity50G':
+                GaugeMetricFamily('smartzone_ap_capacity50G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'capacity6G':
+                GaugeMetricFamily('smartzone_ap_capacity6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'connectionFailure':
+                GaugeMetricFamily('smartzone_ap_connectionFailure', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'model':
+                GaugeMetricFamily('smartzone_ap_model', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'model']),
+            'apMac':
+                GaugeMetricFamily('smartzone_ap_apMac', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'apMac']),
+            'channel24G':
+                GaugeMetricFamily('smartzone_ap_channel24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'channel24G']),
+            'channel5G':
+                GaugeMetricFamily('smartzone_ap_channel5G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'channel5G']),
+            'channel6G':
+                GaugeMetricFamily('smartzone_ap_channel6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'channel6G']),
+            'channel24gValue':
+                GaugeMetricFamily('smartzone_ap_channel24gValue', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'channel50gValue':
+                GaugeMetricFamily('smartzone_ap_channel50gValue', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'channel6gValue':
+                GaugeMetricFamily('smartzone_ap_channel6gValue', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'meshRole':
+                GaugeMetricFamily('smartzone_ap_meshRole', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'meshRole']),
+            'meshMode':
+                GaugeMetricFamily('smartzone_ap_meshMode', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'meshMode']),
+            'zoneName':
+                GaugeMetricFamily('smartzone_ap_zoneName', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'zoneName']),
+            'zoneAffinityProfileName':
+                GaugeMetricFamily('smartzone_ap_zoneAffinityProfileName', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'zoneAffinityProfileName']),
+            'apGroupName':
+                GaugeMetricFamily('smartzone_ap_apGroupName', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'apGroupName']),
+            'extIp':
+                GaugeMetricFamily('smartzone_ap_extIp', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'extIp']),
+            'extPort':
+                GaugeMetricFamily('smartzone_ap_extPort', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'extPort']),
+            'firmwareVersion':
+                GaugeMetricFamily('smartzone_ap_firmwareVersion', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'firmwareVersion']),
             'serial':
-                GaugeMetricFamily('smartzone_aps_list_ap_serial',
-                                  'SmartZone APs list ap serial number',
-                                  labels=["zone_id", "ap_mame", "ap_mac", "serial"])
+                GaugeMetricFamily('smartzone_ap_serial', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'serial']),
+            'retry24G':
+                GaugeMetricFamily('smartzone_ap_retry24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'retry5G':
+                GaugeMetricFamily('smartzone_ap_retry5G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'retry6G':
+                GaugeMetricFamily('smartzone_ap_retry6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'configurationStatus':
+                GaugeMetricFamily('smartzone_ap_configurationStatus', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'configurationStatus']),
+            'lastSeen':
+                GaugeMetricFamily('smartzone_ap_lastSeen', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'numClients':
+                GaugeMetricFamily('smartzone_ap_numClients', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'numClients24G':
+                GaugeMetricFamily('smartzone_ap_numClients24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'numClients5G':
+                GaugeMetricFamily('smartzone_ap_numClients5G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'numClients6G':
+                GaugeMetricFamily('smartzone_ap_numClients6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'tx':
+                GaugeMetricFamily('smartzone_ap_tx', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'tx24G':
+                GaugeMetricFamily('smartzone_ap_tx24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'tx50G':
+                GaugeMetricFamily('smartzone_ap_tx50G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'tx6G':
+                GaugeMetricFamily('smartzone_ap_tx6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'rx':
+                GaugeMetricFamily('smartzone_ap_rx', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'rx24G':
+                GaugeMetricFamily('smartzone_ap_rx24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'rx50G':
+                GaugeMetricFamily('smartzone_ap_rx50G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'rx6G':
+                GaugeMetricFamily('smartzone_ap_rx6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'txRx24G':
+                GaugeMetricFamily('smartzone_ap_txRx24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'txRx50G':
+                GaugeMetricFamily('smartzone_ap_txRx50G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'txRx6G':
+                GaugeMetricFamily('smartzone_ap_txRx6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'location':
+                GaugeMetricFamily('smartzone_ap_location', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'location']),
+            'wlanGroup24Id':
+                GaugeMetricFamily('smartzone_ap_wlanGroup24Id', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'wlanGroup24Id']),
+            'wlanGroup50Id':
+                GaugeMetricFamily('smartzone_ap_wlanGroup50Id', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'wlanGroup50Id']),
+            'wlanGroup6gId':
+                GaugeMetricFamily('smartzone_ap_wlanGroup6gId', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'wlanGroup6gId']),
+            'wlanGroup24Name':
+                GaugeMetricFamily('smartzone_ap_wlanGroup24Name', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'wlanGroup24Name']),
+            'wlanGroup50Name':
+                GaugeMetricFamily('smartzone_ap_wlanGroup50Name', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'wlanGroup50Name']),
+            'wlanGroup6gName':
+                GaugeMetricFamily('smartzone_ap_wlanGroup6gName', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'wlanGroup6gName']),
+            'enabledBonjourGateway':
+                GaugeMetricFamily('smartzone_ap_enabledBonjourGateway', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'enabledBonjourGateway']),
+            'controlBladeName':
+                GaugeMetricFamily('smartzone_ap_controlBladeName', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'controlBladeName']),
+            'lbsStatus':
+                GaugeMetricFamily('smartzone_ap_lbsStatus', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'lbsStatus']),
+            'administrativeState':
+                GaugeMetricFamily('smartzone_ap_administrativeState', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'administrativeState']),
+            'registrationState':
+                GaugeMetricFamily('smartzone_ap_registrationState', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'registrationState']),
+            'provisionMethod':
+                GaugeMetricFamily('smartzone_ap_provisionMethod', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'provisionMethod']),
+            'provisionStage':
+                GaugeMetricFamily('smartzone_ap_provisionStage', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'provisionStage']),
+            'registrationTime':
+                GaugeMetricFamily('smartzone_ap_registrationTime', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'managementVlan':
+                GaugeMetricFamily('smartzone_ap_managementVlan', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'configOverride':
+                GaugeMetricFamily('smartzone_ap_configOverride', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'configOverride']),
+            'apGroupId':
+                GaugeMetricFamily('smartzone_ap_apGroupId', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'apGroupId']),
+            'deviceGps':
+                GaugeMetricFamily('smartzone_ap_deviceGps', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'deviceGps']),
+            'connectionStatus':
+                GaugeMetricFamily('smartzone_ap_connectionStatus', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'connectionStatus']),
+            'zoneId':
+                GaugeMetricFamily('smartzone_ap_zoneId', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'zoneId']),
+            'zoneFirmwareVersion':
+                GaugeMetricFamily('smartzone_ap_zoneFirmwareVersion', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'zoneFirmwareVersion']),
+            'domainId':
+                GaugeMetricFamily('smartzone_ap_domainId', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'domainId']),
+            'domainName':
+                GaugeMetricFamily('smartzone_ap_domainName', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'domainName']),
+            'partnerDomainId':
+                GaugeMetricFamily('smartzone_ap_partnerDomainId', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'partnerDomainId']),
+            'controlBladeId':
+                GaugeMetricFamily('smartzone_ap_controlBladeId', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'controlBladeId']),
+            'isCriticalAp':
+                GaugeMetricFamily('smartzone_ap_isCriticalAp', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isCriticalAp']),
+            'crashDump':
+                GaugeMetricFamily('smartzone_ap_crashDump', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'isOverallHealthStatusFlagged':
+                GaugeMetricFamily('smartzone_ap_isOverallHealthStatusFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isOverallHealthStatusFlagged']),
+            'isLatency24GFlagged':
+                GaugeMetricFamily('smartzone_ap_isLatency24GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isLatency24GFlagged']),
+            'isLatency50GFlagged':
+                GaugeMetricFamily('smartzone_ap_isLatency50GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isLatency50GFlagged']),
+            'isLatency6GFlagged':
+                GaugeMetricFamily('smartzone_ap_isLatency6GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isLatency6GFlagged']),
+            'isCapacity24GFlagged':
+                GaugeMetricFamily('smartzone_ap_isCapacity24GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isCapacity24GFlagged']),
+            'isCapacity50GFlagged':
+                GaugeMetricFamily('smartzone_ap_isCapacity50GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isCapacity50GFlagged']),
+            'isCapacity6GFlagged':
+                GaugeMetricFamily('smartzone_ap_isCapacity6GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isCapacity6GFlagged']),
+            'isConnectionFailure24GFlagged':
+                GaugeMetricFamily('smartzone_ap_isConnectionFailure24GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isConnectionFailure24GFlagged']),
+            'isConnectionFailure50GFlagged':
+                GaugeMetricFamily('smartzone_ap_isConnectionFailure50GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isConnectionFailure50GFlagged']),
+            'isConnectionFailure6GFlagged':
+                GaugeMetricFamily('smartzone_ap_isConnectionFailure6GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isConnectionFailure6GFlagged']),
+            'isConnectionTotalCountFlagged':
+                GaugeMetricFamily('smartzone_ap_isConnectionTotalCountFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isConnectionTotalCountFlagged']),
+            'isConnectionFailureFlagged':
+                GaugeMetricFamily('smartzone_ap_isConnectionFailureFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isConnectionFailureFlagged']),
+            'isAirtimeUtilization24GFlagged':
+                GaugeMetricFamily('smartzone_ap_isAirtimeUtilization24GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isAirtimeUtilization24GFlagged']),
+            'isAirtimeUtilization50GFlagged':
+                GaugeMetricFamily('smartzone_ap_isAirtimeUtilization50GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isAirtimeUtilization50GFlagged']),
+            'isAirtimeUtilization6GFlagged':
+                GaugeMetricFamily('smartzone_ap_isAirtimeUtilization6GFlagged', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isAirtimeUtilization6GFlagged']),
+            'uptime':
+                GaugeMetricFamily('smartzone_ap_uptime', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'eirp24G':
+                GaugeMetricFamily('smartzone_ap_eirp24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'eirp50G':
+                GaugeMetricFamily('smartzone_ap_eirp50G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'eirp6G':
+                GaugeMetricFamily('smartzone_ap_eirp6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'ipType':
+                GaugeMetricFamily('smartzone_ap_ipType', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'ipType']),
+            'ipv6Type':
+                GaugeMetricFamily('smartzone_ap_ipv6Type', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'ipv6Type']),
+            'packetCaptureState':
+                GaugeMetricFamily('smartzone_ap_packetCaptureState', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'packetCaptureState']),
+            'medianTxRadioMCSRate24G':
+                GaugeMetricFamily('smartzone_ap_medianTxRadioMCSRate24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'medianTxRadioMCSRate50G':
+                GaugeMetricFamily('smartzone_ap_medianTxRadioMCSRate50G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'medianTxRadioMCSRate6G':
+                GaugeMetricFamily('smartzone_ap_medianTxRadioMCSRate6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'medianRxRadioMCSRate24G':
+                GaugeMetricFamily('smartzone_ap_medianRxRadioMCSRate24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'medianRxRadioMCSRate50G':
+                GaugeMetricFamily('smartzone_ap_medianRxRadioMCSRate50G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'medianRxRadioMCSRate6G':
+                GaugeMetricFamily('smartzone_ap_medianRxRadioMCSRate6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'monitoringEnabled':
+                GaugeMetricFamily('smartzone_ap_monitoringEnabled', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'monitoringEnabled']),
+            'txPowerOffset24G':
+                GaugeMetricFamily('smartzone_ap_txPowerOffset24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'txPowerOffset5G':
+                GaugeMetricFamily('smartzone_ap_txPowerOffset5G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'txPowerOffset6G':
+                GaugeMetricFamily('smartzone_ap_txPowerOffset6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'rxDesense24G':
+                GaugeMetricFamily('smartzone_ap_rxDesense24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'rxDesense5G':
+                GaugeMetricFamily('smartzone_ap_rxDesense5G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'rxDesense6G':
+                GaugeMetricFamily('smartzone_ap_rxDesense6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'poePortStatus':
+                GaugeMetricFamily('smartzone_ap_poePortStatus', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'poePortStatus']),
+            'cumulativeTx24G':
+                GaugeMetricFamily('smartzone_ap_cumulativeTx24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'cumulativeTx5G':
+                GaugeMetricFamily('smartzone_ap_cumulativeTx5G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'cumulativeTx6G':
+                GaugeMetricFamily('smartzone_ap_cumulativeTx6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'cumulativeRx24G':
+                GaugeMetricFamily('smartzone_ap_cumulativeRx24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'cumulativeRx5G':
+                GaugeMetricFamily('smartzone_ap_cumulativeRx5G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'cumulativeRx6G':
+                GaugeMetricFamily('smartzone_ap_cumulativeRx6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'cumulativeTxRx24G':
+                GaugeMetricFamily('smartzone_ap_cumulativeTxRx24G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'cumulativeTxRx5G':
+                GaugeMetricFamily('smartzone_ap_cumulativeTxRx5G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'cumulativeTxRx6G':
+                GaugeMetricFamily('smartzone_ap_cumulativeTxRx6G', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac']),
+            'isDual5gMode':
+                GaugeMetricFamily('smartzone_ap_isDual5gMode', 'SmartZone AP',
+                                labels=['zone_id', 'ap_name', 'ap_mac', 'isDual5gMode']),
         }
 
         ap_metrics = {
@@ -350,27 +738,27 @@ class SmartZoneCollector():
             'location':
                 GaugeMetricFamily('smartzone_aps_location',
                                   'SmartZone AP location',
-                                  labels=["ap_mame", "ap_mac", "location"]),
+                                  labels=["ap_name", "ap_mac", "location"]),
             'configState':
                 GaugeMetricFamily('smartzone_aps_configState',
                                   'SmartZone AP configState',
-                                  labels=["ap_mame", "ap_mac", "configState"]),
+                                  labels=["ap_name", "ap_mac", "configState"]),
             'criticalCount':
                 GaugeMetricFamily('smartzone_aps_alarms_criticalCount',
                                   'SmartZone AP criticalCount alarm',
-                                  labels=["ap_mame", "ap_mac"]),
+                                  labels=["ap_name", "ap_mac"]),
             'majorCount':
                 GaugeMetricFamily('smartzone_aps_alarms_majorCount',
                                   'SmartZone majorCount alarms',
-                                  labels=["ap_mame", "ap_mac"]),
+                                  labels=["ap_name", "ap_mac"]),
             'minorCount':
                 GaugeMetricFamily('smartzone_aps_alarms_minorCount',
                                   'SmartZone AP minorCount alarms',
-                                  labels=["ap_mame", "ap_mac"]),
+                                  labels=["ap_name", "ap_mac"]),
             'warningCount':
                 GaugeMetricFamily('smartzone_aps_alarms_warningCount',
                                   'SmartZone AP warningCount alarm',
-                                  labels=["ap_mame", "ap_mac"])
+                                  labels=["ap_name", "ap_mac"])
         }
 
         domain_metrics = {
@@ -498,28 +886,6 @@ class SmartZoneCollector():
         for m in zone_metrics.values():
             yield m
 
-        # Get APs list per zone or a domain
-        # For each APs captured from the query:
-        # - Grab the zone ID for labeling purposes
-        # - For each APs, get mac, zoneID, apGroupIdm, name, lanPortSize
-
-        ap_glob_mac = []
-        for ap in self.get_metrics(ap_list, 'aps')['list']:
-            zone_id = ap['zoneId']
-            ap_mame = ap['name']
-            ap_mac = ap['mac']
-            ap_glob_mac.append(ap_mac)
-            for s in self._statuses:
-                # Export a dummy value for string-only metrics
-                extra = ap[s]
-                ap_list[s].add_metric([zone_id, ap_mame, ap_mac, extra], 1)
-
-
-
-
-        for m in ap_list.values():
-            yield m
-
 
        # Get WLANs list per zone or a domain
         for wlan in self.get_metrics(wlan_list, 'query/wlan')['list']:
@@ -538,78 +904,40 @@ class SmartZoneCollector():
 
         for w in wlan_list.values():
             yield w
+       # Get APs list per zone or a domain
+        for ap in self.get_metrics(ap_list, 'query/ap')['list']:
+            zone_id = ap['zoneId']
+            ap_name = ap['deviceName']
+            ap_mac = ap['apMac']
+            for a in self._statuses:
+                if ap.get(a) == None:
+                    ap.update({a: 0})
+                elif ap.get(a) == 'false':
+                    ap.update({a: 0})
+                elif ap.get(a) == 'true':
+                    ap.update({a: 1})
 
-
-
-        num_worker_threads = 10
-
-        def source():
-            return ap_glob_mac
-
-        def worker():
-            while True:
-                item = q.get()
-                if item is None:
-                    break
-                path = 'aps/' + item + '/operational/summary'
-                r.put(self.get_metrics(ap_metrics, path))
-                q.task_done()
-
-        # Queue for threads
-        q = queue.Queue()
-
-        # Queue for result from api
-        r = queue.Queue()
-
-        threads = []
-
-        for i in range(num_worker_threads):
-            t = threading.Thread(target=worker)
-            t.start()
-            threads.append(t)
-
-        for item in source():
-            q.put(item)
-
-        # block until all tasks are done
-        q.join()
-
-        # stop workers
-        for i in range(num_worker_threads):
-            q.put(None)
-
-        for t in threads:
-            t.join()
-
-        ap_mac = 0
-        for i in range(r.qsize()):
-            ap_detail = r.get(block=True, timeout=None)
-            for d in list(ap_metrics.keys()):
-                if (d == "description") & (ap_detail.get("description") == None):
-                    ap_detail.update({"description": "None"})
-                elif ap_detail.get(d) == None:
-                    ap_detail.update({d: 0})
-                if d == 'mac':
-                    ap_mac = ap_detail[d]
-                if d == 'description' or d == 'version' or d == 'model' or d == 'zoneId' or d == 'mac' or d == 'connectionState':
-                    extra = ap_detail[d]
-                    ap_metrics[d].add_metric([ap_mac, extra], 1)
+                if isinstance(ap.get(a), (int, float)):
+                     ap_list[a].add_metric([zone_id, ap_name, ap_mac, extra], ap.get(a))
                 else:
-                    ap_metrics[d].add_metric([ap_mac], ap_detail.get(d))
+                    extra = ap[a]
+                    ap_list[a].add_metric([zone_id, ap_name, ap_mac, extra], 1)
 
-        for m in ap_metrics.values():
-            yield m
+        for a in ap_list.values():
+            yield a
+
+
 
         # Get APs summary information
         for ap in self.get_metrics(ap_summary_list, 'aps/lineman')['list']:
-            ap_mame = ap['name']
+            ap_name = ap['name']
             ap_mac = ap['mac']
             for s in self._statuses:
                 if s == 'criticalCount' or s == 'majorCount' or s == 'minorCount' or s == 'warningCount':
-                    ap_summary_list[s].add_metric([ap_mame, ap_mac], ap['alarms'].get(s))
+                    ap_summary_list[s].add_metric([ap_name, ap_mac], ap['alarms'].get(s))
                 else:
                     extra = ap[s]
-                    ap_summary_list[s].add_metric([ap_mame, ap_mac, extra], 1)
+                    ap_summary_list[s].add_metric([ap_name, ap_mac, extra], 1)
 
         for m in ap_summary_list.values():
             yield m
