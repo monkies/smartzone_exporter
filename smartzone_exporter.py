@@ -297,11 +297,11 @@ class SmartZoneCollector():
             'apGroupId':
                 GaugeMetricFamily('smartzone_aps_list_ap_groupId',
                                   'SmartZone APs list ap groupId',
-                                  labels=["zone_id", "ap_mame", "ap_mac", "groupId"]),
+                                  labels=["zone_id", "ap_name", "ap_mac", "groupId"]),
             'serial':
                 GaugeMetricFamily('smartzone_aps_list_ap_serial',
                                   'SmartZone APs list ap serial number',
-                                  labels=["zone_id", "ap_mame", "ap_mac", "serial"])
+                                  labels=["zone_id", "ap_name", "ap_mac", "serial"])
         }
 
         ap_metrics = {
@@ -363,27 +363,27 @@ class SmartZoneCollector():
             'location':
                 GaugeMetricFamily('smartzone_aps_location',
                                   'SmartZone AP location',
-                                  labels=["ap_mame", "ap_mac", "location"]),
+                                  labels=["ap_name", "ap_mac", "location"]),
             'configState':
                 GaugeMetricFamily('smartzone_aps_configState',
                                   'SmartZone AP configState',
-                                  labels=["ap_mame", "ap_mac", "configState"]),
+                                  labels=["ap_name", "ap_mac", "configState"]),
             'criticalCount':
                 GaugeMetricFamily('smartzone_aps_alarms_criticalCount',
                                   'SmartZone AP criticalCount alarm',
-                                  labels=["ap_mame", "ap_mac"]),
+                                  labels=["ap_name", "ap_mac"]),
             'majorCount':
                 GaugeMetricFamily('smartzone_aps_alarms_majorCount',
                                   'SmartZone majorCount alarms',
-                                  labels=["ap_mame", "ap_mac"]),
+                                  labels=["ap_name", "ap_mac"]),
             'minorCount':
                 GaugeMetricFamily('smartzone_aps_alarms_minorCount',
                                   'SmartZone AP minorCount alarms',
-                                  labels=["ap_mame", "ap_mac"]),
+                                  labels=["ap_name", "ap_mac"]),
             'warningCount':
                 GaugeMetricFamily('smartzone_aps_alarms_warningCount',
                                   'SmartZone AP warningCount alarm',
-                                  labels=["ap_mame", "ap_mac"])
+                                  labels=["ap_name", "ap_mac"])
         }
 
         domain_metrics = {
@@ -519,13 +519,13 @@ class SmartZoneCollector():
         ap_glob_mac = []
         for ap in self.get_metrics(ap_list, 'aps')['list']:
             zone_id = ap['zoneId']
-            ap_mame = ap['name']
+            ap_name = ap['name']
             ap_mac = ap['mac']
             ap_glob_mac.append(ap_mac)
             for s in self._statuses:
                 # Export a dummy value for string-only metrics
                 extra = ap[s]
-                ap_list[s].add_metric([zone_id, ap_mame, ap_mac, extra], 1)
+                ap_list[s].add_metric([zone_id, ap_name, ap_mac, extra], 1)
 
 
 
@@ -638,14 +638,14 @@ class SmartZoneCollector():
 
         # Get APs summary information
         for ap in self.get_metrics(ap_summary_list, 'aps/lineman')['list']:
-            ap_mame = ap['name']
+            ap_name = ap['name']
             ap_mac = ap['mac']
             for s in self._statuses:
                 if s == 'criticalCount' or s == 'majorCount' or s == 'minorCount' or s == 'warningCount':
-                    ap_summary_list[s].add_metric([ap_mame, ap_mac], ap['alarms'].get(s))
+                    ap_summary_list[s].add_metric([ap_name, ap_mac], ap['alarms'].get(s))
                 else:
                     extra = ap[s]
-                    ap_summary_list[s].add_metric([ap_mame, ap_mac, extra], 1)
+                    ap_summary_list[s].add_metric([ap_name, ap_mac, extra], 1)
 
         for m in ap_summary_list.values():
             yield m
